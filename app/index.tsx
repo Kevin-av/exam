@@ -1,3 +1,4 @@
+import React from "react";
 import { Stack, Link } from 'expo-router';
 import { Image, YStack } from "tamagui";
 
@@ -33,8 +34,10 @@ export default function Page() {
             pathname: '/details', 
             params: { name: 'Dan' } }} 
           asChild>
-          <Button backgroundColor='silver' width='40' height= '20'>
-            <ButtonText>Comienza</ButtonText>
+          <Button backgroundColor='silver' 
+                  style={{height: 55,
+                          width: 125}}>
+            <ButtonText>Comenzar</ButtonText>
           </Button>
         </Link>
       </Main>
