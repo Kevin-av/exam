@@ -1,9 +1,6 @@
-import { CardProps, H3, H4, H5, H6, Text } from "tamagui";
-import { Button, Card, H2, Image, Paragraph, XStack } from 'tamagui';
-import { Subtitle } from "~/tamagui.config";
+import { H3, H5, H6 } from "tamagui";
+import { Card, Image, XStack } from 'tamagui';
 import { Pressable } from "react-native";
-import { useState } from "react";
-import EditModal from "~/app/components/EditModal";
 export function CardDemo({setShowEditModal}) {
 console.log("Edit Modal=>",setShowEditModal);
   return (

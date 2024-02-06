@@ -26,8 +26,8 @@ export default function Details() {
       pressStyle={{ opacity: 0.5 }}
       onPress={router.back}
       alignItems={'center'}
-      icon={<Feather name="chevron-left" size={16} color="white" />}>
-      <Text color="white">Regresar</Text>
+      icon={<Feather name="home" size={16} color="white" />}>
+      <Text color="white">Inicio</Text>
     </Button>
   );
 
