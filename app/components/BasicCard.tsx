@@ -1,17 +1,22 @@
 import { H3, H5, H6 } from "tamagui";
 import { Card, Image, XStack } from 'tamagui';
 import { Pressable } from "react-native";
-export function CardDemo({setShowEditModal}) {
-console.log("Edit Modal=>",setShowEditModal);
-  return (
-    <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
-      <DemoCard
-      showEditModal={setShowEditModal}
-      />
-    </XStack>
-  );
-}
-export function DemoCard({showEditModal}) {
+import EditModal from "~/app/components/EditModal";
+
+export function BasicCards({setShowEditModal, data}) {
+  console.log("Edit Modal=>",setShowEditModal);
+    return (
+      <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
+        {data.map((value,index)=>{
+          return(<DemoCard key={index} data={value}
+            showEditModal={setShowEditModal}
+          />)
+        })}
+      </XStack>
+    );
+  }
+
+export function DemoCard({showEditModal, data}) {
   const editModal=()=>{
     showEditModal(true);
   }
@@ -28,9 +33,10 @@ export function DemoCard({showEditModal}) {
           pressStyle={{ scale: 0.875 }}
     >
       <Card.Header padded>
-        <H3>The Maze Runner</H3>
-        <H5>Director: <H6>Wess Ball</H6></H5>
-        <H5>Tiempo: <H6>1h31m</H6></H5>
+        <H3>{data.title}</H3>
+        <H5>Director: <H6>{data.director}</H6></H5>
+        <H5>Tiempo: <H6>{data.duration+"min"}</H6></H5>
+        <H5>Presupuesto: <H6>{data.budget+"$"}</H6></H5>
       </Card.Header>
       <Card.Footer padded>
         <XStack flex={1} />
