@@ -1,18 +1,21 @@
 import { H3, H5, H6 } from "tamagui";
-import { Card, XStack } from 'tamagui';
+import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/components/EditModal";
-import { Edit3, Delete } from '@tamagui/lucide-icons'
 
 export function BasicCards({setShowEditModal, data}) {
   console.log("Edit Modal=>",setShowEditModal);
     return (
       <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
-        {data.map((value,index)=>{
-          return(<DemoCard key={index} data={value}
-            showEditModal={setShowEditModal}
-          />)
-        })}
+        {data.map((value, index) => {
+          return (
+            <DemoCard
+              key={index}
+              data={value}
+              showEditModal={setShowEditModal}
+          />
+        );
+      })}
       </XStack>
     );
   }
@@ -46,13 +49,15 @@ export function DemoCard({showEditModal, data}) {
             alert('Edit Button');
             editModal();
           }}>
+          <Image source={require('../../assets/edit.png')} />
         </Pressable>
         <Pressable
           style={{ marginHorizontal: 6 }}
           onPress={() => {
             alert('Delete Button');
           }}>
-        </Pressable>
+        <Image source={require('../../assets/delete.png')} />
+</Pressable>
       </Card.Footer>
 
       <Card.Background backgroundColor='black' borderRadius={5}>
