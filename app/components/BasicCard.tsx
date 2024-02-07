@@ -46,14 +46,12 @@ export function DemoCard({showEditModal, data}) {
             alert('Edit Button');
             editModal();
           }}>
-          <Edit3 size="$4" />
         </Pressable>
         <Pressable
           style={{ marginHorizontal: 6 }}
           onPress={() => {
             alert('Delete Button');
           }}>
-          <Delete size="$4" />
         </Pressable>
       </Card.Footer>
 

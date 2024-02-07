@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Pressable, View, Image } from "react-native";
+import { ScrollView, View, Image, StyleSheet, Pressable } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Button, Text, YStack, Main, Form } from 'tamagui';
@@ -14,7 +14,7 @@ export default function Details() {
   const router = useRouter();
   const [showEditModal, setShowEditModal] = useState(false);
   const [data, setData] = useState([]);
-  const baseUrl = 'http://10.10.2.44:8081';
+  const baseUrl = 'http://192.168.18.94:8081';
 
   useEffect(() => {
     fetchFilmsData("film");
@@ -66,23 +66,15 @@ export default function Details() {
       <Main>
         <YStack>
           <ScrollView>
-            <Text color="white" fontWeight="bold" fontSize={38}>Panel</Text>
-            <BasicCards data={data} setShowEditModal={openEditModal}></BasicCards>
+            <View style={styles.panel}>
+              <Text color="white" fontWeight="bold" fontSize={38}>Panel</Text>
+              <BasicCards data={data} setShowEditModal={openEditModal}></BasicCards>
+            </View>
           </ScrollView>
-        </YStack>
-        <View style={{
-          position: "absolute",
-          bottom: -600,
-          right: 0
-        }}>
-          <Pressable
-            style={{ borderWidth: 1, borderRadius: 50}}
-            onPress={createNewFeature}>
-            <Image source={require('../assets/plus.png')}
-                   style={{ width: 20, height: 20 }}
-                   />
+          <Pressable style={styles.addButton} onPress={createNewFeature}>
+            <Image source={require('../assets/plus.png')} style={styles.plusIcon} />
           </Pressable>
-        </View>
+        </YStack>
       </Main>
       {showEditModal &&
         <EditModal data={data} closeEditModal={closeEditModal} isCreate={true}></EditModal>
@@ -90,3 +82,21 @@ export default function Details() {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  panel: {
+    padding: 20,
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    borderWidth: 1,
+    borderRadius: 50,
+    padding: 10,
+  },
+  plusIcon: {
+    width: 20,
+    height: 20,
+  },
+});
