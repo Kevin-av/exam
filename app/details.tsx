@@ -14,7 +14,23 @@ export default function Details() {
   const router = useRouter();
   const [showEditModal, setShowEditModal] = useState(false);
   const [data, setData] = useState([]);
-  const baseUrl = 'http://192.168.18.94:8081';
+  const baseUrl = 'http://10.10.2.44:8081';
+
+  useEffect(() => {
+    fetchFilmsData("film");
+  }, []);
+
+  const openEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const createNewFeature = () => {
+    openEditModal();
+  };
 
   const fetchFilmsData = async (ruta) => {
     const url = `${baseUrl}/${ruta}`;
@@ -29,14 +45,6 @@ export default function Details() {
     setData (response.data);
     console.log(response.data);
   }
-
-  useEffect(() => {
-    fetchFilmsData("film");
-  }, []);
-
-  const openEditModal = () => {
-    setShowEditModal(true);
-  };
 
   const BackButton = () => (
     <Button
@@ -68,12 +76,8 @@ export default function Details() {
           right: 0
         }}>
           <Pressable
-            style={{ borderWidth: 1, 
-                     borderRadius: 50}}
-            onPress={() => {
-              setIscreateModal(true)
-              openEditModal();
-            }}>
+            style={{ borderWidth: 1, borderRadius: 50}}
+            onPress={createNewFeature}>
             <Image source={require('../assets/plus.png')}
                    style={{ width: 20, height: 20 }}
                    />
@@ -81,7 +85,7 @@ export default function Details() {
         </View>
       </Main>
       {showEditModal &&
-        <EditModal data={data} closeEditModal={closeEditModal} isCreate={isCreateModal}></EditModal>
+        <EditModal data={data} closeEditModal={closeEditModal} isCreate={true}></EditModal>
       }
     </Container>
   );

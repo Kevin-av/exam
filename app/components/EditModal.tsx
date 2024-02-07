@@ -1,7 +1,31 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, Button} from 'react-native';
+import axios from 'axios';
 
-const EditModal = () => {
+const EditModal = ({closeEditModal}) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    director: '',
+    duration: ''
+  });
+
+  const handleChange = (field, value) => {
+    setFormData(prevState => ({
+      ...prevState,
+      [field]: value
+    }));
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.post('http://10.10.2.44:8081/film', formData);
+      console.log('Film saved:', response.data);
+      closeEditModal();
+    } catch (error) {
+      console.error('Error saving film:', error);
+    }
+  };
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -12,12 +36,31 @@ const EditModal = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+            <Text style={styles.modalText}>Ingrese los datos del film:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Título"
+              value={formData.title}
+              onChangeText={text => handleChange('title', text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Director"
+              value={formData.director}
+              onChangeText={text => handleChange('director', text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Duración (minutos)"
+              value={formData.duration}
+              onChangeText={text => handleChange('duration', text)}
+              keyboardType="numeric"
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Guardar" onPress={handleSave} color="silver" />
+              <View style={styles.buttonSpacer} />
+              <Button title="Cerrar" onPress={closeEditModal} color="black" />
+            </View>
           </View>
         </View>
       </Modal>
@@ -47,25 +90,27 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    color: 'black'
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    padding: 10,
+    width: '100%',
+    color: 'black'
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  buttonSpacer: {
+    width: 10,
   },
 });
 
