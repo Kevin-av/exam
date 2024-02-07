@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Image, StyleSheet, Pressable } from "react-native";
-import { Feather } from '@expo/vector-icons';
-import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Button, Text, YStack, Main, Form } from 'tamagui';
 import { Container} from '../tamagui.config';
 
@@ -10,11 +8,9 @@ import EditModal from "~/app/components/EditModal";
 import axios, { AxiosResponse } from "axios";
 
 export default function Details() {
-  const { name } = useLocalSearchParams();
-  const router = useRouter();
   const [showEditModal, setShowEditModal] = useState(false);
   const [data, setData] = useState([]);
-  const baseUrl = 'http://192.168.18.94:8081';
+  const baseUrl = 'http://10.0.8.239:8081';
 
   useEffect(() => {
     fetchFilmsData("film");
@@ -38,28 +34,6 @@ export default function Details() {
     setData(response.data);
     console.log(response.data);
   };
-
-  const saveFilm = async (ruta,form) => {
-    const url = `${baseUrl}/${ruta}`;
-    const response = await axios.post(url,form);
-    setData (response.data);
-    console.log(response.data);
-  }
-
-  const BackButton = () => (
-    <Button
-      unstyled
-      flexDirection="row"
-      backgroundColor="black"
-      padding={8}
-      borderRadius={10}
-      pressStyle={{ opacity: 0.5 }}
-      onPress={router.back}
-      alignItems={'center'}
-      icon={<Feather name="home" size={16} color="white" />}>
-      <Text color="white">Inicio</Text>
-    </Button>
-  );
 
   return (
     <Container style={{ backgroundColor: 'black' }}>
@@ -90,13 +64,12 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: 20,
-    right: 20,
-    borderWidth: 1,
+    right: 2,
     borderRadius: 50,
     padding: 10,
   },
   plusIcon: {
-    width: 20,
-    height: 20,
-  },
+    height: 45,
+    width: 45
+  }
 });

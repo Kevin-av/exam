@@ -46,17 +46,16 @@ export function DemoCard({showEditModal, data}) {
         <Pressable
           style={{ marginHorizontal: 5 }}
           onPress={() => {
-            alert('Edit Button');
             editModal();
           }}>
-          <Image source={require('../../assets/edit.png')} />
+          <Image source={require('../../assets/edit.png')} style={{top:-10}}/>
         </Pressable>
         <Pressable
           style={{ marginHorizontal: 6 }}
           onPress={() => {
             alert('Delete Button');
           }}>
-        <Image source={require('../../assets/delete.png')} />
+        <Image source={require('../../assets/delete.png')} style={{top:-10}} />
 </Pressable>
       </Card.Footer>
 
