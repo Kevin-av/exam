@@ -1,7 +1,8 @@
 import { H3, H5, H6 } from "tamagui";
-import { Card, Image, XStack } from 'tamagui';
+import { Card, XStack } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/components/EditModal";
+import { Edit3, Delete } from '@tamagui/lucide-icons'
 
 export function BasicCards({setShowEditModal, data}) {
   console.log("Edit Modal=>",setShowEditModal);
@@ -27,7 +28,7 @@ export function DemoCard({showEditModal, data}) {
           borderColor={'white'}
           animation="bouncy"
           width={"100%"}
-          height={'auto'}
+          height= {'auto'}
           scale={0.9}
           hoverStyle={{ scale: 0.925 }}
           pressStyle={{ scale: 0.875 }}
@@ -35,8 +36,7 @@ export function DemoCard({showEditModal, data}) {
       <Card.Header padded>
         <H3>{data.title}</H3>
         <H5>Director: <H6>{data.director}</H6></H5>
-        <H5>Tiempo: <H6>{data.duration+"min"}</H6></H5>
-        <H5>Presupuesto: <H6>{data.budget+"$"}</H6></H5>
+        <H5>Tiempo: <H6>{data.duration + "min"}</H6></H5>
       </Card.Header>
       <Card.Footer padded>
         <XStack flex={1} />
@@ -46,20 +46,14 @@ export function DemoCard({showEditModal, data}) {
             alert('Edit Button');
             editModal();
           }}>
-          <Image source={require('../../assets/edit.png')} 
-                 style={{ width: 25,
-                          height: 25,
-                          alignSelf: "center"}}/>
+          <Edit3 size="$4" />
         </Pressable>
         <Pressable
           style={{ marginHorizontal: 6 }}
           onPress={() => {
             alert('Delete Button');
           }}>
-          <Image source={require('../../assets/delete.png')}
-                 style={{ width: 25,
-                          height: 25,
-                          alignSelf: "center"}} />
+          <Delete size="$4" />
         </Pressable>
       </Card.Footer>
 

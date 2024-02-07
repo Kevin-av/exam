@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Pressable, View, Image } from "react-native";
 import { Feather } from '@expo/vector-icons';
-import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
-import { Button, Text, YStack, Main } from 'tamagui';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Button, Text, YStack, Main, Form } from 'tamagui';
 import { Container} from '../tamagui.config';
 
 import { BasicCards } from "~/app/components/BasicCard";
 import EditModal from "~/app/components/EditModal";
-import { fetchFilms } from "~/app/service/BasicPetitions";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export default function Details() {
   const { name } = useLocalSearchParams();
   const router = useRouter();
   const [showEditModal, setShowEditModal] = useState(false);
   const [data, setData] = useState([]);
-  const baseUrl = 'http://10.0.12.82:8082';
+  const baseUrl = 'http://192.168.18.94:8081';
 
   const fetchFilmsData = async (ruta) => {
     const url = `${baseUrl}/${ruta}`;
@@ -23,6 +22,13 @@ export default function Details() {
     setData(response.data);
     console.log(response.data);
   };
+
+  const saveFilm = async (ruta,form) => {
+    const url = `${baseUrl}/${ruta}`;
+    const response = await axios.post(url,form);
+    setData (response.data);
+    console.log(response.data);
+  }
 
   useEffect(() => {
     fetchFilmsData("film");
@@ -65,7 +71,8 @@ export default function Details() {
             style={{ borderWidth: 1, 
                      borderRadius: 50}}
             onPress={() => {
-              console.log("Add X");
+              setIscreateModal(true)
+              openEditModal();
             }}>
             <Image source={require('../assets/plus.png')}
                    style={{ width: 20, height: 20 }}
@@ -74,9 +81,8 @@ export default function Details() {
         </View>
       </Main>
       {showEditModal &&
-        <EditModal closeEditModal={() => setShowEditModal(false)}></EditModal>
+        <EditModal data={data} closeEditModal={closeEditModal} isCreate={isCreateModal}></EditModal>
       }
     </Container>
   );
 }
-
