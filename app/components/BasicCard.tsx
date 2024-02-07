@@ -3,7 +3,7 @@ import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/components/EditModal";
 
-export function BasicCards({setShowEditModal, data}) {
+export function BasicCards({setShowEditModal, data, deleteFeature}) {
   console.log("Edit Modal=>",setShowEditModal);
     return (
       <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
@@ -13,6 +13,7 @@ export function BasicCards({setShowEditModal, data}) {
               key={index}
               data={value}
               showEditModal={setShowEditModal}
+              deleteFeature={deleteFeature}
           />
         );
       })}
@@ -20,10 +21,19 @@ export function BasicCards({setShowEditModal, data}) {
     );
   }
 
-export function DemoCard({showEditModal, data}) {
+export function DemoCard({showEditModal, data, deleteFeature}) {
   const editModal=()=>{
     showEditModal(true);
   }
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteFeature("film", id);
+      console.log('Feature deleted successfully');
+    } catch (error) {
+      console.error('Error deleting feature:', error);
+    }
+  };
 
   return (
     <Card elevate size="$4" 
@@ -53,7 +63,7 @@ export function DemoCard({showEditModal, data}) {
         <Pressable
           style={{ marginHorizontal: 6 }}
           onPress={() => {
-            alert('Delete Button');
+            handleDelete(data.id);
           }}>
         <Image source={require('../../assets/delete.png')} style={{top:-10}} />
 </Pressable>

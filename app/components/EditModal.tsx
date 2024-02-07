@@ -18,7 +18,7 @@ const EditModal = ({closeEditModal}) => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.post('http://10.0.8.239:8081/film', formData);
+      const response = await axios.post('http://192.168.18.94:8081/film', formData);
       console.log('Film saved:', response.data);
       closeEditModal();
     } catch (error) {
