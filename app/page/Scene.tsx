@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Image, StyleSheet, Pressable } from "react-native";
 import { Button, Text, YStack, Main, Form } from 'tamagui';
-import { Container} from '../tamagui.config';
 import { Feather } from '@expo/vector-icons';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 
-import { BasicCards } from "~/app/components/BasicCard";
-import EditModal from "~/app/components/EditModal";
+import { SceneCard } from "~/app/page/SceneCard";
+import EditModal from "~/app/page/EditModal";
 import axios, { AxiosResponse } from "axios";
 
 export default function Details() {
@@ -16,7 +15,7 @@ export default function Details() {
   const router = useRouter();
 
   useEffect(() => {
-    fetchFilmsData("film");
+    fetchScenesData("scene"); 
   }, []);
 
   const openEditModal = () => {
@@ -31,7 +30,7 @@ export default function Details() {
     openEditModal();
   };
 
-  const fetchFilmsData = async (ruta) => {
+  const fetchScenesData = async (ruta) => { 
     try {
       const url = `${baseUrl}/${ruta}`;
       const response = await axios.get(url);
@@ -42,21 +41,15 @@ export default function Details() {
     }
   };
   
-  const deleteFeature = async (ruta, id) => {
+  const deleteScene = async (ruta, id) => {
     try {
       const url = `${baseUrl}/${ruta}`;
       console.log(url)
       const response = await axios.delete(`${url}/delete/${id}`);
       console.log(response.data);
     } catch (error) {
-      console.error('Error deleting feature:', error);
+      console.error('Error deleting scene:', error);
     }
-  };
-
-  const navigateToScene = (id) => {
-    // Aquí deberías navegar a la página scene.tsx
-    // Por ejemplo:
-   router.navigate('Scene', { id });
   };
 
   const BackButton = () => (
@@ -82,11 +75,11 @@ export default function Details() {
           <ScrollView>
             <View style={styles.panel}>
               <Text color="white" fontWeight="bold" fontSize={38}>Panel</Text>
-              <BasicCards data={data} setShowEditModal={openEditModal} deleteFeature={deleteFeature} navigateToScene={navigateToScene} />
+              <SceneCard data={data} showEditModal={openEditModal} deleteScene={deleteScene} />
             </View>
           </ScrollView>
           <Pressable style={styles.addButton} onPress={createNewFeature}>
-            <Image source={require('../assets/plus.png')} style={styles.plusIcon} />
+            <Image source={require('~/assets/plus.png')} style={styles.plusIcon} />
           </Pressable>
         </YStack>
       </Main>

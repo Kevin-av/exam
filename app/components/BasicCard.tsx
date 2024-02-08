@@ -1,9 +1,10 @@
+import React from "react";
 import { H3, H5, H6 } from "tamagui";
 import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/components/EditModal";
 
-export function BasicCards({setShowEditModal, data, deleteFeature}) {
+export function BasicCards({setShowEditModal, data, deleteFeature, navigateToScene}) {
   console.log("Edit Modal=>",setShowEditModal);
     return (
       <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
@@ -14,6 +15,7 @@ export function BasicCards({setShowEditModal, data, deleteFeature}) {
               data={value}
               showEditModal={setShowEditModal}
               deleteFeature={deleteFeature}
+              navigateToScene={navigateToScene}
           />
         );
       })}
@@ -21,7 +23,7 @@ export function BasicCards({setShowEditModal, data, deleteFeature}) {
     );
   }
 
-export function DemoCard({showEditModal, data, deleteFeature}) {
+export function DemoCard({showEditModal, data, deleteFeature, navigateToScene}) {
   const editModal=()=>{
     showEditModal(true);
   }
@@ -36,6 +38,7 @@ export function DemoCard({showEditModal, data, deleteFeature}) {
   };
 
   return (
+  <Pressable onPress={() => navigateToScene(data.id)}>
     <Card elevate size="$4" 
           bordered={2}  
           borderColor={'white'}
@@ -74,5 +77,6 @@ export function DemoCard({showEditModal, data, deleteFeature}) {
       </Card.Background>
 
     </Card>
+  </Pressable>
   );
 }
