@@ -52,6 +52,10 @@ export default function Details() {
     }
   };
 
+  const navigateToScene = (id) => {
+    router.navigate('page/Character', { id });
+   };
+
   const BackButton = () => (
     <Button
       unstyled

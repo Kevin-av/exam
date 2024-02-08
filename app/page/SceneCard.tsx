@@ -4,7 +4,7 @@ import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/page/EditModal";
 
-export function SceneCard({ showEditModal, data, deleteScene }) {
+export function SceneCard({ showEditModal, data, deleteScene, navigateToScene }) {
   const editModal = () => {
     showEditModal(true);
   }
@@ -19,6 +19,7 @@ export function SceneCard({ showEditModal, data, deleteScene }) {
   };
 
   return (
+  <Pressable onPress={() => navigateToScene(data.id)}>
     <Card elevate size="$4" 
           bordered={2}  
           borderColor={'white'}
@@ -55,5 +56,6 @@ export function SceneCard({ showEditModal, data, deleteScene }) {
 
       </Card.Background>
     </Card>
+  </Pressable>
   );
 }

@@ -4,7 +4,7 @@ import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
 import EditModal from "~/app/components/EditModal";
 
-export function BasicCards({setShowEditModal, data, deleteFeature, navigateToScene}) {
+export function BasicCards({setShowEditModal, data, deleteFeature, navigateToScene }) {
   console.log("Edit Modal=>",setShowEditModal);
     return (
       <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
@@ -59,7 +59,7 @@ export function DemoCard({showEditModal, data, deleteFeature, navigateToScene}) 
         <Pressable
           style={{ marginHorizontal: 5 }}
           onPress={() => {
-            editModal();
+            editModal(data.id);
           }}>
           <Image source={require('../../assets/edit.png')} style={{top:-10}}/>
         </Pressable>

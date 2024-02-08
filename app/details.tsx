@@ -11,8 +11,9 @@ import axios, { AxiosResponse } from "axios";
 
 export default function Details() {
   const [showEditModal, setShowEditModal] = useState(false);
+  const [actualData] = useState({});
   const [data, setData] = useState([]);
-  const baseUrl = 'http://192.168.18.94:8081';
+  const baseUrl = 'http://10.10.3.29:8081';
   const router = useRouter();
 
   useEffect(() => {
@@ -54,9 +55,7 @@ export default function Details() {
   };
 
   const navigateToScene = (id) => {
-    // Aquí deberías navegar a la página scene.tsx
-    // Por ejemplo:
-   router.navigate('Scene', { id });
+   router.navigate('page/Scene', { id });
   };
 
   const BackButton = () => (
@@ -91,7 +90,7 @@ export default function Details() {
         </YStack>
       </Main>
       {showEditModal &&
-        <EditModal data={data} closeEditModal={closeEditModal} isCreate={true}></EditModal>
+        <EditModal closeEditModal={closeEditModal} isCreate={true}></EditModal>
       }
     </Container>
   );
