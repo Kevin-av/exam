@@ -7,13 +7,12 @@ import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 
 import { BasicCards } from "~/app/components/BasicCard";
 import EditModal from "~/app/components/EditModal";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 export default function Details() {
   const [showEditModal, setShowEditModal] = useState(false);
-  const [actualData] = useState({});
   const [data, setData] = useState([]);
-  const baseUrl = 'http://10.10.3.29:8081';
+  const baseUrl = 'http://10.0.3.56:8081';
   const router = useRouter();
 
   useEffect(() => {
@@ -26,10 +25,6 @@ export default function Details() {
 
   const closeEditModal = () => {
     setShowEditModal(false);
-  };
-
-  const createNewFeature = () => {
-    openEditModal();
   };
 
   const fetchFilmsData = async (ruta) => {
@@ -49,13 +44,14 @@ export default function Details() {
       console.log(url)
       const response = await axios.delete(`${url}/delete/${id}`);
       console.log(response.data);
+      fetchFilmsData("film");
     } catch (error) {
       console.error('Error deleting feature:', error);
     }
   };
 
   const navigateToScene = (id) => {
-   router.navigate('page/Scene', { id });
+    router.navigate('page/Scene', { id });
   };
 
   const BackButton = () => (
@@ -84,17 +80,18 @@ export default function Details() {
               <BasicCards data={data} setShowEditModal={openEditModal} deleteFeature={deleteFeature} navigateToScene={navigateToScene} />
             </View>
           </ScrollView>
-          <Pressable style={styles.addButton} onPress={createNewFeature}>
+          <Pressable style={styles.addButton} onPress={openEditModal}>
             <Image source={require('../assets/plus.png')} style={styles.plusIcon} />
           </Pressable>
         </YStack>
       </Main>
       {showEditModal &&
-        <EditModal closeEditModal={closeEditModal} isCreate={true}></EditModal>
+        <EditModal closeEditModal={closeEditModal}></EditModal>
       }
     </Container>
   );
 }
+
 
 const styles = StyleSheet.create({
   panel: {

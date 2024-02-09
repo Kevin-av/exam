@@ -2,7 +2,24 @@ import React from "react";
 import { H3, H5, H6 } from "tamagui";
 import { Card, XStack, Image } from 'tamagui';
 import { Pressable } from "react-native";
-import EditModal from "~/app/page/EditModal";
+
+export function BasicCard({showEditModal, data, deleteScene, navigateToScene }) {
+  return (
+    <XStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$4" space>
+      {data.map((value, index) => {
+        return (
+          <SceneCard
+            key={index}
+            data={value}
+            showEditModal={showEditModal}
+            deleteScene={deleteScene}
+            navigateToScene={navigateToScene}
+          />
+        );
+      })}
+    </XStack>
+  );
+}
 
 export function SceneCard({ showEditModal, data, deleteScene, navigateToScene }) {
   const editModal = () => {
@@ -17,6 +34,7 @@ export function SceneCard({ showEditModal, data, deleteScene, navigateToScene })
       console.error('Error deleting scene:', error);
     }
   };
+
 
   return (
   <Pressable onPress={() => navigateToScene(data.id)}>

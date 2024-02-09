@@ -18,7 +18,7 @@ const SceneEditModal = ({ closeEditModal }) => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.post('http://192.168.18.94:8081/scene', formData);
+      const response = await axios.post('http://10.0.3.56:8081/scene', formData);
       console.log('Scene saved:', response.data);
       closeEditModal();
     } catch (error) {

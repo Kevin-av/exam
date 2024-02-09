@@ -18,8 +18,7 @@ const EditModal = ({closeEditModal}) => {
 
   const handleSave = async () => {
     try {
-      console.log(formData);
-      const response = await axios.post('http://10.10.3.29:8081/film', formData);
+      const response = await axios.post('http://10.0.3.56:8081/film', formData);
       console.log('Film saved:', response.data);
       closeEditModal();
     } catch (error) {
@@ -94,21 +93,17 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    color: 'black'
   },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 20,
-    padding: 10,
+    paddingHorizontal: 10,
     width: '100%',
-    color: 'black'
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
   },
   buttonSpacer: {
     width: 10,
